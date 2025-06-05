@@ -1,4 +1,4 @@
-import { ADD_EXPERIENCES_BY_ID, SET_ADD_EXPERIENCES_ERROR } from "../actions";
+import { GET_EXPERIENCES, SET_EXPERIENCES_ERROR } from "../actions";
 
 const initialState = {
   content: [],
@@ -6,16 +6,16 @@ const initialState = {
   isLoading: false,
 };
 
-const addExperiencesReducer = (state = initialState, action) => {
+const experiencesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_EXPERIENCES_BY_ID:
+    case GET_EXPERIENCES:
       return {
         ...state,
-        content: [...state.content, action.payload],
+        content: action.payload,
         error: null,
         isLoading: false,
       };
-    case SET_ADD_EXPERIENCES_ERROR:
+    case SET_EXPERIENCES_ERROR:
       return {
         ...state,
         error: action.payload,
@@ -26,4 +26,4 @@ const addExperiencesReducer = (state = initialState, action) => {
   }
 };
 
-export default addExperiencesReducer;
+export default experiencesReducer;

@@ -3,7 +3,7 @@ export const GET_PROFILE_BY_ID = "GET_PROFILE_BY_ID";
 export const SET_MY_PROFILE_ERROR = "SET_MY_PROFILE_ERROR";
 export const GET_USER_PROFILES = "GET_USER_PROFILES";
 export const SET_USER_PROFILES_ERROR = "GET_USER_PROFILES_ERROR";
-export const GET_EXPERIENCES_BY_ID = "GET_EXPERIENCES_BY_ID";
+export const GET_EXPERIENCES = "GET_EXPERIENCES";
 export const SET_EXPERIENCES_ERROR = "SET_EXPERIENCES_ERROR";
 export const ADD_EXPERIENCES_BY_ID = "ADD_EXPERIENCES_BY_ID";
 export const SET_ADD_EXPERIENCES_ERROR = "SET_ADD_EXPERIENCES_ERROR";
@@ -91,7 +91,7 @@ export const getExperiences = (userId) => {
       }
 
       const data = await res.json();
-      dispatch({ type: GET_EXPERIENCES_BY_ID, payload: data });
+      dispatch({ type: GET_EXPERIENCES, payload: data });
     } catch (error) {
       dispatch({ type: SET_EXPERIENCES_ERROR, payload: error.message });
     }
