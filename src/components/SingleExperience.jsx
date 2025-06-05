@@ -14,23 +14,12 @@ const SingleExperience = () => {
       dispatch(getExperiences(param.userId));
     }
   }, [dispatch, param.userId]);
-  {
-    console.log("UserId", param.userId);
-    console.log(experiences);
-  }
 
   useEffect(() => {
     console.log("param:", param);
     console.log("userId:", param.userId);
     console.log("experiences:", experiences);
   }, [param, experiences]);
-
-  // const oneProfile = profiles.find((user) => {
-  //   return user._id === param.userId;
-  // });
-  // {
-  //   console.log(oneProfile);
-  // }
 
   return (
     <>
@@ -39,6 +28,23 @@ const SingleExperience = () => {
           <p>Nessuna esperienza trovata.</p>
         ) : (
           experiences?.map((experience, index) => {
+            let start = new Date(experience.startDate);
+            let end = new Date(experience.endDate);
+            const years =
+              end.getFullYear() -
+              start.getFullYear() -
+              (end.getMonth() < start.getMonth() || (end.getMonth() === start.getMonth() && end.getDate() < start.getDate()) ? 1 : 0);
+            const months =
+              (end.getMonth() - start.getMonth() + 12 * (end.getFullYear() - start.getFullYear()) + (end.getDate() < start.getDate() ? -1 : 0)) % 12;
+            const workingPeriod =
+              years > 0
+                ? months > 0
+                  ? `${years} ann${years > 1 ? "i" : ""} e ${months} mes${months > 1 ? "i" : ""}`
+                  : `${years} ann${years > 1 ? "i" : ""}`
+                : months > 0
+                ? `${months} mes${months > 1 ? "i" : ""}`
+                : "0 mesi";
+
             return (
               <div key={experience._id || index}>
                 <Col md={1}>
@@ -50,16 +56,24 @@ const SingleExperience = () => {
                     <span>{experience.company}</span>
                   </div>
                   <div className="d-flex gap-1 font-very-small">
-                    <span>Oct 2024</span>
+                    <span>
+                      {start.toLocaleString("default", {
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
                     <span style={{ "user-select": "none" }}>-</span>
-                    <span>Oct 2024</span>
+                    <span>
+                      {end.toLocaleString("default", {
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
                     <span style={{ "user-select": "none" }}>&bull;</span>
-                    <span>5 mos</span>
+                    <span>{workingPeriod}</span>
                   </div>
                   <div className="d-flex gap-1 font-very-small">
                     <span>{experience.area}</span>
-                    <span style={{ "user-select": "none" }}>&bull;</span>
-                    <span>On-site</span>
                   </div>
                   <div className="mt-2">
                     <p>{experience.description}</p>
