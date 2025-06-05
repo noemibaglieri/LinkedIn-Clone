@@ -1,9 +1,18 @@
+import { useEffect } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Pencil } from "react-bootstrap-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyProfileAction } from "../redux/actions";
 
 const UserProfileCard = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMyProfileAction());
+  }, [dispatch]);
+
   const profile = useSelector((state) => state.myProfileReducer.content);
+  console.log(profile);
 
   if (!profile) return <p>Caricamento profilo...</p>;
 
