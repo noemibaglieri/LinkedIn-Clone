@@ -1,14 +1,13 @@
-import { Button, Col, Container, Modal, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import { Pencil, Plus } from "react-bootstrap-icons";
 import SingleExperience from "./SingleExperience";
-import ExperienceForm from "./ExperienceForm";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Experiences = (props) => {
   const [display, setDisplay] = useState();
+  const [form, setForm] = useState({ role: "", company: "", startDate: "", endDate: "", description: "", area: "" });
   const dispatch = useDispatch();
-  const experiences = useSelector((state) => state.experiencesReducer?.content);
 
   return (
     <>
@@ -30,13 +29,38 @@ const Experiences = (props) => {
               </Modal.Header>
 
               <Modal.Body>
-                <ExperienceForm />
+                <Form>
+                  <Form.Group className="mb-3" controlId="role">
+                    <Form.Label>Role:</Form.Label>
+                    <Form.Control type="text" placeholder="Role" />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="company">
+                    <Form.Label>Company:</Form.Label>
+                    <Form.Control type="text" placeholder="Company" />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="area">
+                    <Form.Label>Area:</Form.Label>
+                    <Form.Control type="text" placeholder="Area" />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="start-date">
+                    <Form.Label>Start date:</Form.Label>
+                    <Form.Control type="date" placeholder="StartDate" />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="end-date">
+                    <Form.Label>End date:</Form.Label>
+                    <Form.Control type="date" placeholder="EndDate" />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="job-description">
+                    <Form.Label>Your tasks</Form.Label>
+                    <Form.Control as="textarea" rows={3} />
+                  </Form.Group>
+                </Form>
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={() => setDisplay("none")}>
                   Close
                 </Button>
-                <Button variant="primary" onClick={() => dispatch({ type: "ADD_EXPERIENCES_BY_ID", payload: experiences.role })}>
+                <Button variant="primary" onClick={() => dispatch({ type: "ADD_EXPERIENCES_BY_ID", payload: "" })}>
                   Save changes
                 </Button>
               </Modal.Footer>
