@@ -3,6 +3,8 @@ export const GET_PROFILE_BY_ID = "GET_PROFILE_BY_ID";
 export const SET_MY_PROFILE_ERROR = "SET_MY_PROFILE_ERROR";
 export const GET_USER_PROFILES = "GET_USER_PROFILES";
 export const SET_USER_PROFILES_ERROR = "GET_USER_PROFILES_ERROR";
+export const GET_EXPERIENCES_BY_ID = "GET_EXPERIENCES_BY_ID";
+export const SET_EXPERIENCES_ERROR = "SET_EXPERIENCES_ERROR";
 
 const token = import.meta.env.VITE_API_TOKEN;
 
@@ -10,7 +12,7 @@ const token = import.meta.env.VITE_API_TOKEN;
 export const getAllUsers = () => {
   return async (dispatch) => {
     try {
-      const res = await fetch("https://striveschool-api.herokuapp.com/api/profile/", {
+      const res = await fetch(`https://striveschool-api.herokuapp.com/api/profile/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -68,6 +70,28 @@ export const getProfileByIdAction = (userId) => {
       dispatch({ type: GET_PROFILE_BY_ID, payload: data });
     } catch (error) {
       dispatch({ type: SET_MY_PROFILE_ERROR, payload: error.message });
+    }
+  };
+};
+
+//experiences
+export const getExperiences = (userId) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Utente non trovato");
+      }
+
+      const data = await res.json();
+      dispatch({ type: GET_EXPERIENCES_BY_ID, payload: data });
+    } catch (error) {
+      dispatch({ type: SET_EXPERIENCES_ERROR, payload: error.message });
     }
   };
 };

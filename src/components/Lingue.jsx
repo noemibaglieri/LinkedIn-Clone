@@ -1,18 +1,20 @@
+import { Col, Row } from "react-bootstrap";
+import { Pencil, Plus } from "react-bootstrap-icons";
 import Card from "react-bootstrap/Card";
 
 function Lingue() {
   return (
     <Card className="p-2 mt-3 border">
       <Card.Body className="d-flex justify-content-between align-items-center">
-        <Card.Title>Lingue</Card.Title>
-        <div className="d-flex align-items-center">
-          <div className="btn-pen-plus me-2">
-            <img style={{ width: "20px" }} src="{plus}" alt="più" />
-          </div>
-          <div className="btn-pen-plus">
-            <img style={{ width: "20px" }} src="" alt="penna" />
-          </div>
-        </div>
+        <Row className="justify-content-between mb-3">
+          <Col md={8}>
+            <h5>Lingue</h5>
+          </Col>
+          <Col md={2} className="d-flex align-items-center justify-content-end gap-4">
+            <Plus className="fs-1" />
+            <Pencil className="fs-5" />
+          </Col>
+        </Row>
       </Card.Body>
       <div className="p-3">
         <h4 style={{ fontSize: "18px" }}>Inglese</h4>

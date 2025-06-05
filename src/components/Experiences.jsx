@@ -19,12 +19,6 @@ const Experiences = (props) => {
           <Col>
             <SingleExperience />
           </Col>
-          <Col>
-            <SingleExperience />
-          </Col>
-          <Col>
-            <SingleExperience />
-          </Col>
         </Row>
       </Container>
     </>

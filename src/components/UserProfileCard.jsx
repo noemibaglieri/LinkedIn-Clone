@@ -35,7 +35,7 @@ const UserProfileCard = () => {
                 <Card.Text className="mb-1">{profile.title}</Card.Text>
                 <div className="d-flex gap-2">
                   <span className="country fw-normal mb-1">{profile.area}</span>
-                  <span style={{ "user-select": "none" }}>&bull;</span>
+                  <span>&bull;</span>
                   <Card.Link className="fw-semibold text-decoration-none">Contact info</Card.Link>
                 </div>
                 <Card.Link className="fw-semibold text-decoration-none">100 connections</Card.Link>
