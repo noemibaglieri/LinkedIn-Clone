@@ -1,0 +1,126 @@
+body {
+  background-color: #f4f2ee;
+}
+.country {
+  color: #666666;
+}
+
+.font-very-small {
+  font-size: 0.8rem;
+}
+
+.banner-image {
+  height: 200px;
+  object-fit: cover;
+}
+
+.profile-image {
+  height: 170px;
+  width: 170px;
+  object-fit: cover;
+  border-radius: 100px;
+  border: 4px solid white;
+}
+
+.profile-image-div {
+  position: absolute;
+  bottom: 210px;
+  left: 25px;
+}
+
+.btn-custom:hover {
+  background-color: rgb(217, 228, 233);
+  border: solid 2px rgb(12, 36, 92);
+  color: rgb(13, 110, 253);
+}
+
+.text-custom {
+  color: rgb(161, 124, 22);
+  font-size: 14px;
+}
+.class-icon {
+  width: 20px;
+}
+.text-svg {
+  font-size: 12px;
+}
+.btn-pen-plus {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-pen-plus:hover {
+  background-color: #ececec;
+}
+.btn-interessi:hover {
+  background-color: #ececec;
+}
+.btn-interessi {
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out;
+}
+.btn-interessi-profilo:hover {
+  background-color: #ececec;
+  border: solid 2px black;
+  color: black;
+}
+
+footer a {
+  text-decoration: none;
+  color: #666;
+  font-size: 14px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+
+footer ul {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+footer li {
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+footer label {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+footer select {
+  font-size: 14px;
+}
+
+footer .form-select {
+  max-width: 100%;
+}
+
+footer .text-secondary {
+  color: #999 !important;
+}
+.icon-grey {
+  color: #666666;
+}
+
+.analytics-card {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.long-button {
+  border-bottom-left-radius: 0.3rem !important;
+  border-bottom-right-radius: 0.3rem !important;
+}
+
+.long-button:hover {
+  background-color: #f3f3f3 !important;
+}

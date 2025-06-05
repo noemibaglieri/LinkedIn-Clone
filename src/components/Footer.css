@@ -1,0 +1,40 @@
+footer a {
+  text-decoration: none;
+  color: #666;
+  font-size: 14px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+
+footer ul {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+footer li {
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+footer label {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+footer select {
+  font-size: 14px;
+}
+
+footer .form-select {
+  max-width: 100%;
+}
+
+footer .text-secondary {
+  color: #999 !important;
+}
+.icon-grey {
+  color: #666666;
+}
