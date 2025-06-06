@@ -43,6 +43,10 @@ body {
   left: 25px;
 }
 
+.form-input {
+  width: 730px;
+}
+
 .btn-custom:hover {
   background-color: rgb(217, 228, 233);
   border: solid 2px rgb(12, 36, 92);

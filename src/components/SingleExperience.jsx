@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 const SingleExperience = () => {
   const dispatch = useDispatch();
-  const experiences = useSelector((state) => state.experiencesReducer?.content);
+  const experiences = useSelector((state) => state.experiencesReducer.content);
   const param = useParams();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const SingleExperience = () => {
   return (
     <>
       <Row>
-        {experiences?.length === 0 ? (
+        {experiences.length === 0 ? (
           <p>Nessuna esperienza trovata.</p>
         ) : (
           experiences?.map((experience, index) => {

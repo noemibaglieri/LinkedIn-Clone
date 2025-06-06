@@ -1,6 +1,7 @@
 import { Col, Row } from "react-bootstrap";
 import Post from "./Post";
 import UserProfileCard from "./UserProfileCard";
+import CreatePost from "./CreatePost";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
           <UserProfileCard isCompact="true" />
         </Col>
         <Col md={8}>
+          <CreatePost />
           <Post />
         </Col>
       </Row>

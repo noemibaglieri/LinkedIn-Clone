@@ -9,6 +9,7 @@ export const ADD_EXPERIENCES_BY_ID = "ADD_EXPERIENCES_BY_ID";
 export const SET_ADD_EXPERIENCES_ERROR = "SET_ADD_EXPERIENCES_ERROR";
 export const GET_POSTS = "GET_POSTS";
 export const SET_POSTS_ERROR = "SET_POSTS_ERROR";
+export const UPDATE_POST = "UPDATE_POST";
 
 const token = import.meta.env.VITE_API_TOKEN;
 
@@ -35,10 +36,10 @@ export const getAllUsers = () => {
 };
 
 //me
-export const getMyProfileAction = () => {
+export const getMyProfileAction = (userId) => {
   return async (dispatch) => {
     try {
-      const res = await fetch("https://striveschool-api.herokuapp.com/api/profile/me", {
+      const res = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -102,6 +103,7 @@ export const getExperiences = (userId) => {
 
 //experiences POST
 export const addExperiences = (userId, experienceData) => {
+  console.log(userId, experienceData);
   return async (dispatch) => {
     try {
       const res = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
@@ -141,6 +143,30 @@ export const getAllPosts = () => {
       dispatch({ type: GET_POSTS, payload: data });
     } catch (error) {
       console.error("errore nei post", error);
+      dispatch({ type: SET_POSTS_ERROR, payload: error.message });
+    }
+  };
+};
+
+//edit post
+export const updatePost = (postId, updateData) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updateData),
+      });
+
+      if (!res.ok) {
+        throw new Error("Errore nella modifica del post");
+      }
+      const updatedPost = await res.json();
+      dispatch({ type: UPDATE_POST, payload: updatedPost });
+    } catch (error) {
       dispatch({ type: SET_POSTS_ERROR, payload: error.message });
     }
   };
