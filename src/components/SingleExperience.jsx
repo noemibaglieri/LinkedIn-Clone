@@ -9,11 +9,14 @@ const SingleExperience = () => {
   const experiences = useSelector((state) => state.experiencesReducer?.content);
   const param = useParams();
 
+  const myProfile = useSelector((state) => state.myProfileReducer.content);
+
   useEffect(() => {
-    if (param.userId) {
-      dispatch(getExperiences(param.userId));
+    const id = param.userId || myProfile?._id;
+    if (id) {
+      dispatch(getExperiences(id));
     }
-  }, [dispatch, param.userId]);
+  }, [dispatch, param.userId, myProfile]);
 
   useEffect(() => {
     console.log("param:", param);
