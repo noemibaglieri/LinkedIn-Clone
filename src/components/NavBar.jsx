@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Form, Nav, NavDropdown, Button, ListGroup, Container } from "react-bootstrap";
 import { Grid3x3GapFill } from "react-bootstrap-icons";
@@ -9,19 +9,32 @@ import people from "../assets/people-fill.svg";
 import bag from "../assets/briefcase-fill.svg";
 import mess from "../assets/chat-dots-fill.svg";
 import bell from "../assets/bell-fill.svg";
-import { getProfileByIdAction } from "../redux/actions";
+
+import { getAllUsers } from "../redux/actions";
 
 const MyNavBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const users = useSelector((state) => state.allProfilesReducer.content);
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
   const handleSearch = (e) => {
     e.preventDefault();
-    const trimmedQuery = searchQuery.trim();
-    if (trimmedQuery) {
-      dispatch(getProfileByIdAction(trimmedQuery));
-      navigate(`/profile/${trimmedQuery}`);
+    const trimmedQuery = searchQuery.trim().toLowerCase();
+
+    if (trimmedQuery && users && users.length > 0) {
+      const foundUser = users.find((user) => `${user.name} ${user.surname}`.toLowerCase().includes(trimmedQuery));
+
+      if (foundUser) {
+        navigate(`/profile/${foundUser._id}`);
+      } else {
+        alert("Utente non trovato");
+      }
     }
   };
 
@@ -34,7 +47,7 @@ const MyNavBar = () => {
           <Form className="d-flex" onSubmit={handleSearch}>
             <Form.Control
               type="search"
-              placeholder="Cerca per userId"
+              placeholder="Cerca per nome o cognome"
               className="me-5"
               aria-label="Search"
               value={searchQuery}
