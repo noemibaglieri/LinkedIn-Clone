@@ -17,7 +17,7 @@ const MyNavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const users = useSelector((state) => state.profiles.userProfiles);
+  const users = useSelector((state) => state.allProfilesReducer.content);
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -27,7 +27,7 @@ const MyNavBar = () => {
     e.preventDefault();
     const trimmedQuery = searchQuery.trim().toLowerCase();
 
-    if (trimmedQuery && users.length > 0) {
+    if (trimmedQuery && users && users.length > 0) {
       const foundUser = users.find((user) => `${user.name} ${user.surname}`.toLowerCase().includes(trimmedQuery));
 
       if (foundUser) {
