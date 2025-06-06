@@ -3,6 +3,7 @@ import { Button, Col, Row, Modal, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getExperiences } from "../redux/actions";
 import { useParams } from "react-router-dom";
+import { PencilFill, Trash } from "react-bootstrap-icons";
 
 const token = import.meta.env.VITE_API_TOKEN;
 
@@ -129,11 +130,11 @@ const SingleExperience = () => {
                     </div>
                   </Col>
                   <div className="d-flex gap-2">
-                    <Button className="bg-warning border-0 rounded-pill" onClick={() => handleEditClick(experience)}>
-                      ✏️
+                    <Button variant="secondary" className=" border-0 rounded-5" onClick={() => handleEditClick(experience)}>
+                      <PencilFill />
                     </Button>
-                    <Button className="bg-danger border-0 rounded-pill" onClick={() => deleteExperience(experience._id)}>
-                      🗑️
+                    <Button className="bg-danger border-0 rounded-5" onClick={() => deleteExperience(experience._id)}>
+                      <Trash />
                     </Button>
                   </div>
                 </div>

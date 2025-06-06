@@ -9,9 +9,7 @@ import people from "../assets/people-fill.svg";
 import bag from "../assets/briefcase-fill.svg";
 import mess from "../assets/chat-dots-fill.svg";
 import bell from "../assets/bell-fill.svg";
-
 import { getAllUsers } from "../redux/actions";
-import Home from "./Home";
 
 const MyNavBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,6 +17,7 @@ const MyNavBar = () => {
   const navigate = useNavigate();
 
   const users = useSelector((state) => state.allProfilesReducer.content);
+  const myprofile = useSelector((state) => state.myProfileReducer.content);
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -61,8 +60,8 @@ const MyNavBar = () => {
         <Nav className="d-flex align-items-center w-50 gap-4">
           <Nav href="#" className="d-flex flex-column align-items-center">
             <img className="class-icon" src={house} alt="home" />
-            <Link to="/">
-              <h6 className="text-svg">Home</h6>
+            <Link to="/" className="text-decoration-none ">
+              <h6 className="text-svg text-black">Home</h6>
             </Link>
           </Nav>
           <Nav href="#" className="d-flex flex-column align-items-center">
@@ -84,24 +83,16 @@ const MyNavBar = () => {
 
           <NavDropdown title="Tu" id="navbarScrollingDropdown">
             <div className="d-flex align-items-center px-2">
-              <img
-                style={{ maxWidth: "70px", maxHeight: "70px" }}
-                className="rounded-circle"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDm0aJovNXb9D5EebdSj3QND1MLcEWCiZA9w&s"
-                alt="profilo"
-              />
+              <img style={{ maxWidth: "50px", maxHeight: "50px" }} className="rounded-circle" src={myprofile?.image} alt="profilo" />
               <div>
                 <NavDropdown.Item className="fw-semibold" href="#action3">
-                  Nome Cognome
-                </NavDropdown.Item>
-                <NavDropdown.Item className="text-wrap" href="#action4">
-                  Descrizione
+                  {myprofile?.name} {myprofile?.surname}
                 </NavDropdown.Item>
               </div>
             </div>
-            <div className="px-2">
+            <div className="px-2 mt-2 d-flex justify-content-center">
               <Link to="/profile/me">
-                <Button variant="outline-primary" className="rounded-pill w-100 btn-custom">
+                <Button size="sm" variant="outline-primary" className="rounded-5">
                   Visualizza Profilo
                 </Button>
               </Link>

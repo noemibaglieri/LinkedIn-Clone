@@ -39,7 +39,6 @@ const Experiences = (props) => {
         </Col>
         <Col md={2} className="d-flex align-items-center justify-content-end gap-4">
           <Plus className="fs-1" onClick={() => setShowModal(true)} />
-          <Pencil className="fs-5" />
         </Col>
       </Row>
 
