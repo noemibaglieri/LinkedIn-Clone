@@ -43,9 +43,8 @@ const Activity = () => {
         </Col>
       </Row>
       <Row>
-        {/* CARD 1 */}
-        <Post />
-        <Post />
+        {/* <Post />
+        <Post /> */}
       </Row>
     </Container>
   );
