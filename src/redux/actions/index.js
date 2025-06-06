@@ -36,10 +36,10 @@ export const getAllUsers = () => {
 };
 
 //me
-export const getMyProfileAction = (userId) => {
+export const getMyProfileAction = () => {
   return async (dispatch) => {
     try {
-      const res = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}`, {
+      const res = await fetch(`https://striveschool-api.herokuapp.com/api/profile/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
