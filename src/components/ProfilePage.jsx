@@ -29,7 +29,7 @@ const ProfilePage = () => {
     <Row>
       <Col md={8}>
         <UserProfileCard />
-        <MyAnalytics />
+
         <About />
         <Activity />
         <Experiences />

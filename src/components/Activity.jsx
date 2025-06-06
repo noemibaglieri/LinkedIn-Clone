@@ -4,6 +4,8 @@ import { ArrowRepeat, Chat, HandThumbsUp, Pencil, PersonCircle, Share } from "re
 // import { useDispatch, useSelector } from "react-redux";
 // import { getAllUsers } from "../redux/actions";
 import Post from "./Post";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Activity = () => {
   // const dispatch = useDispatch();
@@ -14,6 +16,11 @@ const Activity = () => {
   //   dispatch(getAllUsers());
   // }, [dispatch]);
 
+  const { userId } = useParams();
+
+  const myUserProfile = useSelector((state) => state.myProfileReducer.content);
+  const isMyProfile = userId === myUserProfile?._id;
+
   return (
     <Container className="my-3 bg-white rounded p-4 border">
       <Row className="justify-content-between">
@@ -21,12 +28,14 @@ const Activity = () => {
           <h5 className="mb-0">Activity</h5>
           <Card.Link className="text-decoration-none fw-semibold">100 followers</Card.Link>
         </Col>
-        <Col md={4} className="d-flex align-items-center justify-content-end gap-4">
-          <Button variant="outline-primary" className="rounded-5 fw-semibold ps-4 pe-4">
-            Create a post
-          </Button>
-          <Pencil className="fs-5" />
-        </Col>
+        {!isMyProfile && (
+          <Col md={4} className="d-flex align-items-center justify-content-end gap-4">
+            <Button variant="outline-primary" className="rounded-5 fw-semibold ps-4 pe-4">
+              Create a post
+            </Button>
+            <Pencil className="fs-5" />
+          </Col>
+        )}
       </Row>
 
       <Row className="mt-1 mb-4">
