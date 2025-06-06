@@ -6,18 +6,8 @@ import Activity from "./Activity";
 import MyAnalytics from "./MyAnalytics";
 import Lingue from "./Lingue";
 import About from "./About";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getMyProfileAction } from "../redux/actions";
-import ExperienceForm from "./ExperienceForm";
 
 const UserProfile = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getMyProfileAction());
-  }, [dispatch]);
-
   return (
     <Row>
       <Col md={8}>

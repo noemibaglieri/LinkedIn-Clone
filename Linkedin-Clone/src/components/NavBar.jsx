@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Form, Nav, NavDropdown, Button, ListGroup, Container } from "react-bootstrap";
 import { Grid3x3GapFill } from "react-bootstrap-icons";
 
@@ -9,19 +9,33 @@ import people from "../assets/people-fill.svg";
 import bag from "../assets/briefcase-fill.svg";
 import mess from "../assets/chat-dots-fill.svg";
 import bell from "../assets/bell-fill.svg";
-import { getProfileByIdAction } from "../redux/actions";
+
+import { getAllUsers } from "../redux/actions";
+import Home from "./Home";
 
 const MyNavBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const users = useSelector((state) => state.allProfilesReducer.content);
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
   const handleSearch = (e) => {
     e.preventDefault();
-    const trimmedQuery = searchQuery.trim();
-    if (trimmedQuery) {
-      dispatch(getProfileByIdAction(trimmedQuery));
-      navigate(`/profile/${trimmedQuery}`);
+    const trimmedQuery = searchQuery.trim().toLowerCase();
+
+    if (trimmedQuery && users && users.length > 0) {
+      const foundUser = users.find((user) => `${user.name} ${user.surname}`.toLowerCase().includes(trimmedQuery));
+
+      if (foundUser) {
+        navigate(`/profile/${foundUser._id}`);
+      } else {
+        alert("Utente non trovato");
+      }
     }
   };
 
@@ -29,12 +43,13 @@ const MyNavBar = () => {
     <Navbar className="bg-body-tertiary">
       <Container className="d-flex w-100 justify-content-between align-items-center">
         <div className="d-flex gap-3">
-          <img width={40} src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="logo LinkedIn" />
-
+          <Link to="/">
+            <img width={40} src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="logo LinkedIn" />
+          </Link>
           <Form className="d-flex" onSubmit={handleSearch}>
             <Form.Control
               type="search"
-              placeholder="Cerca per userId"
+              placeholder="Cerca per nome o cognome"
               className="me-5"
               aria-label="Search"
               value={searchQuery}
@@ -46,7 +61,9 @@ const MyNavBar = () => {
         <Nav className="d-flex align-items-center w-50 gap-4">
           <Nav href="#" className="d-flex flex-column align-items-center">
             <img className="class-icon" src={house} alt="home" />
-            <h6 className="text-svg">Home</h6>
+            <Link to="/">
+              <h6 className="text-svg">Home</h6>
+            </Link>
           </Nav>
           <Nav href="#" className="d-flex flex-column align-items-center">
             <img className="class-icon" src={people} alt="rete" />
@@ -83,9 +100,11 @@ const MyNavBar = () => {
               </div>
             </div>
             <div className="px-2">
-              <Button variant="outline-primary" className="rounded-pill w-100 btn-custom">
-                Visualizza Profilo
-              </Button>
+              <Link to="/profile/me">
+                <Button variant="outline-primary" className="rounded-pill w-100 btn-custom">
+                  Visualizza Profilo
+                </Button>
+              </Link>
             </div>
             <NavDropdown.Divider />
             <div className="px-3">

@@ -6,6 +6,7 @@ import UserProfile from "./components/UserProfile";
 import { Container } from "react-bootstrap";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProfilePage from "./components/ProfilePage";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
       <NavBar />
       <Container>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/profile/me" element={<UserProfile />} />
-          <Route path="/profile/:userId/experiences" element={<ProfilePage />} />
+          <Route path="/profile/:userId" element={<ProfilePage />} />
         </Routes>
       </Container>
       <MyFooter />
