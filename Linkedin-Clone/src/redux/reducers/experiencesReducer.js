@@ -1,26 +1,33 @@
-import { GET_EXPERIENCES, SET_EXPERIENCES_ERROR } from "../actions";
+import { SET_EXPERIENCES, ADD_EXPERIENCE, UPDATE_EXPERIENCE, SET_EXPERIENCES_ERROR, SET_EXPERIENCES_LOADING } from "../actions";
 
 const initialState = {
   content: [],
-  error: null,
   isLoading: false,
+  error: null,
 };
 
 const experiencesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_EXPERIENCES:
+    case SET_EXPERIENCES:
+      return { ...state, content: action.payload, isLoading: false, error: null };
+
+    case ADD_EXPERIENCE:
+      return { ...state, content: [...state.content, action.payload], isLoading: false, error: null };
+
+    case UPDATE_EXPERIENCE:
       return {
         ...state,
-        content: action.payload,
+        content: state.content.map((exp) => (exp._id === action.payload._id ? action.payload : exp)),
+        isLoading: false,
         error: null,
-        isLoading: false,
       };
+
+    case SET_EXPERIENCES_LOADING:
+      return { ...state, isLoading: action.payload };
+
     case SET_EXPERIENCES_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-        isLoading: false,
-      };
+      return { ...state, error: action.payload, isLoading: false };
+
     default:
       return state;
   }

@@ -8,10 +8,8 @@ import MyAnalytics from "./MyAnalytics";
 import About from "./About";
 import Experiences from "./Experiences";
 import Lingue from "./Lingue";
-import Interests from "./Interests";
 import ColumnProfileRight from "./ColumnProfileRight";
 import Activity from "./Activity";
-import ExperienceForm from "./ExperienceForm";
 
 const ProfilePage = () => {
   const { userId } = useParams();

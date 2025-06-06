@@ -4,7 +4,6 @@ import UserProfileCard from "./UserProfileCard";
 import Experiences from "./Experiences";
 import Activity from "./Activity";
 import MyAnalytics from "./MyAnalytics";
-import Interests from "./Interests";
 import Lingue from "./Lingue";
 import About from "./About";
 import { useEffect } from "react";
@@ -30,7 +29,6 @@ const UserProfile = () => {
         <Experiences title="Education" />
         <Experiences title="Licenses & certifications" />
         <Lingue />
-        <Interests />
       </Col>
       <Col md={4}>
         <ColumnProfileRight />
