@@ -4,7 +4,7 @@ import SingleExperience from "./SingleExperience";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addExperiences } from "../redux/actions";
+import { addExperiences, getExperiences } from "../redux/actions";
 
 const Experiences = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -26,12 +26,11 @@ const Experiences = (props) => {
       [e.target.id]: e.target.value,
     });
   };
-
-  const handleSave = () => {
-    dispatch(addExperiences(userId, formData));
+  const handleSave = async () => {
+    await dispatch(addExperiences(userId, formData));
+    dispatch(getExperiences(userId));
     setShowModal(false);
   };
-
   return (
     <Container className="bg-white p-4 rounded-2 border mt-3">
       <Row className="justify-content-between mb-3">
