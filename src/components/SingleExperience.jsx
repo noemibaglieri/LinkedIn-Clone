@@ -14,6 +14,10 @@ const SingleExperience = () => {
   const param = useParams();
   const myProfile = useSelector((state) => state.myProfileReducer.content);
 
+  const { userId } = useParams();
+  const myUserProfile = useSelector((state) => state.myProfileReducer.content);
+  const isMyProfile = userId === myUserProfile?._id;
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingExperience, setEditingExperience] = useState(null);
 
@@ -129,14 +133,16 @@ const SingleExperience = () => {
                       <p>{experience.description}</p>
                     </div>
                   </Col>
-                  <div className="d-flex gap-2">
-                    <Button variant="secondary" className=" border-0 rounded-5" onClick={() => handleEditClick(experience)}>
-                      <PencilFill />
-                    </Button>
-                    <Button className="bg-danger border-0 rounded-5" onClick={() => deleteExperience(experience._id)}>
-                      <Trash />
-                    </Button>
-                  </div>
+                  {!isMyProfile && (
+                    <div className="d-flex gap-2">
+                      <Button variant="secondary" className=" border-0 rounded-5" onClick={() => handleEditClick(experience)}>
+                        <PencilFill />
+                      </Button>
+                      <Button className="bg-danger border-0 rounded-5" onClick={() => deleteExperience(experience._id)}>
+                        <Trash />
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             );

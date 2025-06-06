@@ -32,9 +32,7 @@ const ProfilePage = () => {
         <MyAnalytics />
         <About />
         <Activity />
-        <Experiences title="Experience" />
-        <Experiences title="Education" />
-        <Experiences title="Licenses & certifications" />
+        <Experiences />
         <Lingue />
         <Interests />
       </Col>

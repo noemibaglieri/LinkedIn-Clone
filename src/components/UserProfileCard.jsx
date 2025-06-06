@@ -34,11 +34,6 @@ const UserProfileCard = ({ isCompact = false }) => {
           )}
 
           <Card.Body className={`pt-5 ${isCompact ? "pb-1 ps-4 pe-4" : "p-4"}`}>
-            {!isCompact && (
-              <Col className="d-flex justify-content-end fs-5">
-                <Pencil />
-              </Col>
-            )}
             <Row className={`${isCompact ? "flex-column" : ""}`}>
               <Col md={9} className={`d-flex flex-column ${isCompact ? "" : "mb-2"}`}>
                 {!isCompact ? (

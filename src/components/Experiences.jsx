@@ -1,12 +1,12 @@
 import { Button, Col, Container, Modal, Row, Form } from "react-bootstrap";
-import { Pencil, Plus } from "react-bootstrap-icons";
+import { Plus } from "react-bootstrap-icons";
 import SingleExperience from "./SingleExperience";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { addExperiences, getExperiences } from "../redux/actions";
 
-const Experiences = (props) => {
+const Experiences = () => {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     role: "",
@@ -19,6 +19,12 @@ const Experiences = (props) => {
 
   const dispatch = useDispatch();
   const { userId } = useParams();
+
+  const myUserProfile = useSelector((state) => state.myProfileReducer.content);
+  const isMyProfile = userId === myUserProfile?._id;
+
+  // const location = useLocation();
+  // console.log("Location", location);
 
   const handleChange = (e) => {
     setFormData({
@@ -35,11 +41,13 @@ const Experiences = (props) => {
     <Container className="bg-white p-4 rounded-2 border mt-3">
       <Row className="justify-content-between mb-3">
         <Col md={8}>
-          <h5>{props.title}</h5>
+          <h5>Experiences</h5>
         </Col>
-        <Col md={2} className="d-flex align-items-center justify-content-end gap-4">
-          <Plus className="fs-1" onClick={() => setShowModal(true)} />
-        </Col>
+        {!isMyProfile && (
+          <Col md={2} className="d-flex align-items-center justify-content-end gap-4">
+            <Plus className="fs-1" onClick={() => setShowModal(true)} />
+          </Col>
+        )}
       </Row>
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
