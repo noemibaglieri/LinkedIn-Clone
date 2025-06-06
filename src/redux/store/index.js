@@ -3,6 +3,7 @@ import myProfileReducer from "../reducers/myProfileReducer";
 import allProfilesReducer from "../reducers/allProfilesReducer";
 import experiencesReducer from "../reducers/experiencesReducer";
 import addExperiencesReducer from "../reducers/addExperiencesReducer";
+import postsReducer from "../reducers/postsReducer";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     experiencesReducer,
     allProfilesReducer,
     addExperiencesReducer,
+    postsReducer,
   },
 });
 

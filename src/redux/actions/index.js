@@ -7,6 +7,8 @@ export const GET_EXPERIENCES_BY_ID = "GET_EXPERIENCES_BY_ID";
 export const SET_EXPERIENCES_ERROR = "SET_EXPERIENCES_ERROR";
 export const ADD_EXPERIENCES_BY_ID = "ADD_EXPERIENCES_BY_ID";
 export const SET_ADD_EXPERIENCES_ERROR = "SET_ADD_EXPERIENCES_ERROR";
+export const GET_POSTS = "GET_POSTS";
+export const SET_POSTS_ERROR = "SET_POSTS_ERROR";
 
 const token = import.meta.env.VITE_API_TOKEN;
 
@@ -119,6 +121,27 @@ export const addExperiences = (userId, experienceData) => {
       dispatch({ type: ADD_EXPERIENCES_BY_ID, payload: data });
     } catch (error) {
       dispatch({ type: SET_ADD_EXPERIENCES_ERROR, payload: error.message });
+    }
+  };
+};
+
+//all posts
+export const getAllPosts = () => {
+  return async (dispatch) => {
+    try {
+      const res = await fetch("https://striveschool-api.herokuapp.com/api/posts/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!res.ok) {
+        throw new Error("Errore nel recuper dei post");
+      }
+      const data = await res.json();
+      dispatch({ type: GET_POSTS, payload: data });
+    } catch (error) {
+      console.error("errore nei post", error);
+      dispatch({ type: SET_POSTS_ERROR, payload: error.message });
     }
   };
 };
