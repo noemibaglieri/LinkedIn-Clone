@@ -1,8 +1,9 @@
-import { useEffect } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Col, Row, Modal, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getExperiences } from "../redux/actions";
 import { useParams } from "react-router-dom";
+
 const token = import.meta.env.VITE_API_TOKEN;
 
 const SingleExperience = () => {
@@ -10,8 +11,10 @@ const SingleExperience = () => {
   const experiences = useSelector((state) => state.experiencesReducer.content);
   const profile = useSelector((state) => state.myProfileReducer.content);
   const param = useParams();
-
   const myProfile = useSelector((state) => state.myProfileReducer.content);
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingExperience, setEditingExperience] = useState(null);
 
   useEffect(() => {
     const id = param.userId || myProfile?._id;
@@ -37,6 +40,32 @@ const SingleExperience = () => {
       }
     } catch (error) {
       console.log("Errore", error);
+    }
+  };
+
+  const handleEditClick = (experience) => {
+    setEditingExperience(experience);
+    setShowEditModal(true);
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      const resp = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${profile._id}/experiences/${editingExperience._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(editingExperience),
+      });
+
+      if (!resp.ok) throw new Error("Errore nella modifica");
+
+      alert("Esperienza modificata con successo!");
+      dispatch(getExperiences(profile._id));
+      setShowEditModal(false);
+    } catch (error) {
+      console.log("Errore:", error);
     }
   };
 
@@ -82,14 +111,14 @@ const SingleExperience = () => {
                           year: "numeric",
                         })}
                       </span>
-                      <span style={{ "user-select": "none" }}>-</span>
+                      <span style={{ userSelect: "none" }}>-</span>
                       <span>
                         {end.toLocaleString("default", {
                           month: "short",
                           year: "numeric",
                         })}
                       </span>
-                      <span style={{ "user-select": "none" }}>&bull;</span>
+                      <span style={{ userSelect: "none" }}>&bull;</span>
                       <span>{workingPeriod}</span>
                     </div>
                     <div className="d-flex gap-1 font-very-small">
@@ -99,20 +128,74 @@ const SingleExperience = () => {
                       <p>{experience.description}</p>
                     </div>
                   </Col>
-                  <Button
-                    className="bg-danger border-0 rounded-pill"
-                    onClick={() => {
-                      deleteExperience(experience._id);
-                    }}
-                  >
-                    🗑️
-                  </Button>
+                  <div className="d-flex gap-2">
+                    <Button className="bg-warning border-0 rounded-pill" onClick={() => handleEditClick(experience)}>
+                      ✏️
+                    </Button>
+                    <Button className="bg-danger border-0 rounded-pill" onClick={() => deleteExperience(experience._id)}>
+                      🗑️
+                    </Button>
+                  </div>
                 </div>
               </div>
             );
           })
         )}
       </Row>
+
+      {/* Modal modifica esperienza */}
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modifica Esperienza</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {editingExperience && (
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>Ruolo</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={editingExperience.role}
+                  onChange={(e) => setEditingExperience({ ...editingExperience, role: e.target.value })}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Azienda</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={editingExperience.company}
+                  onChange={(e) => setEditingExperience({ ...editingExperience, company: e.target.value })}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Descrizione</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={editingExperience.description}
+                  onChange={(e) => setEditingExperience({ ...editingExperience, description: e.target.value })}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Area</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={editingExperience.area}
+                  onChange={(e) => setEditingExperience({ ...editingExperience, area: e.target.value })}
+                />
+              </Form.Group>
+            </Form>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+            Annulla
+          </Button>
+          <Button variant="primary" onClick={handleSaveEdit}>
+            Salva
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
